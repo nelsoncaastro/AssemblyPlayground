@@ -4,7 +4,6 @@ section .text
 
 start:
 	call password
-
 	mov si, 00h
 	mov cx, 05h
 ingresar:call teclado
@@ -32,16 +31,6 @@ password:
 	mov al, "t"
 	mov [0204h], al
 	ret
-
-iniciarRaton:
-        mov ax, 00h
-        int 33h
-        ret
-
-iniciarPuntero:
-        mov ax, 01h
-        int 33h
-        ret
 
 iniciarCursor:
         mov ah, 01h
@@ -73,6 +62,7 @@ comparar:mov bl, [0200h+si]
 	mov bh, [0300h+si]
 	cmp bl, bh
 	jne incorrecto 
+        inc si
 	loop comparar
 	mov al, "Y"
 	call respuesta
