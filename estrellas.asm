@@ -15,11 +15,11 @@ call fin
 ;======= Subrutinas
 
 bandera:
-	call canvas
-	call cuadroAzul
-	call cuadroRojo
-	call puntosIniciales
-	call estrellaAzul
+	;call canvas
+	;call cuadroAzul
+	;call cuadroRojo
+	;call puntosIniciales
+	call estrellaVerde
 	ret
 
 canvas: 
@@ -61,46 +61,87 @@ sigcrojo:	call pixelRojo
 	jne sigcrojo
 	ret
 
-estrellaAzul:
+puntosIniciales:
+
+    ;coordenadas iniciales
+    ;mov byte [0500h], 00h
+    ;mov byte [0201h], 00h
+    
+	mov si, 188d
+    mov [0500h], si ; x del primer punto
+    
+    ;mov byte [0502h], 00h
+    ;mov byte [0203h], 00h
+    
+	mov si, 166d
+    mov [0502h], si ; y del primer punto
+    
+    ;coordenadas finales
+    ;mov byte [0504h], 00h
+    ;mov byte [0205h], 00h 
+    
+	mov si, 200d
+    mov [0504h], si ; x del segundo punto
+    
+    ;mov byte [0506h], 00h
+    ;mov byte [0207h], 00h
+    
+	mov si, 132d
+    mov [0506h], si ; y del segundo punto
+    
+    ret 
+
+estrellaVerde:
 ;punto inical
 ;m y b
-	mov cx, word [0200h]
-	mov dx, word [0202h]
+	mov si, [0500h]
+	mov cx, si	
+	mov si, [0502h]
+	mov dx, si
 	call encontrarbp
 sigeazul:	call encontrardx
-	call pixelAzul
+	call pixelVerde
 	inc cx
-	cmp cx,200d
+	mov si, [0504h]
+	cmp cx, si
 	jne sigeazul
 	ret      
 
-encontrarbp:
-    mov bx, word [0206h] ; y_2
-    mov si, word [0202h] ; y_1
+encontrarbp: ;Encontramos la pendiente de dicha linea recta
+	mov bp , [0506h]
+    mov bx, bp ; y_2
+	mov bp, [0502h]
+    mov si, bp ; y_1
     
     sub bx, si ; y_2 - y_1 
-    mov word [0208h], bx
+    mov [0508h], bx
     
-    mov bx, word [0204h] ; x_2
-    mov si, word [0200h] ; x_1
+	mov bp, [0504h]
+    mov bx, bp ; x_2
+	mov bp, [0500h]
+    mov si, bp ; x_1
     
     sub bx, si ; x_2 - x_1 
-    mov word [020Ah], bx 
+    mov [050Ah], bx 
     
-    mov ax, word [0208h] ;dividendo 
-    mov bx, word [020Ah] ;divisor
+	mov bp, [0508h]
+    mov ax, bp ;dividendo 
+	mov bp, [050Ah]
+    mov bx, bp;divisor
     
     idiv bx ; y_2 - y_1 / x_2 - x_1 
     
-    mov bp, bx       
+    mov bp, ax       
     ret
 
 encontrardx:
-	mov dx,0d
+	;mov dx,0d
 	mov ax, cx
-	sub ax, word [0200h]
+	mov si, [0500h] ; posición de cx inicial
+	sub ax, si 
 	imul bp
-	add ax, word [0202h]
+	mov si, [0502h] ; posición de dx inicial
+	add ax, si
 	mov dx, ax
 	ret
 
@@ -125,6 +166,14 @@ pixelBlanco:
 	int 10h
 	ret
 
+pixelVerde:
+	mov ah, 0Ch
+	mov al, 0010b ;blanco
+	mov bh, 00h
+	int 10h
+	ret
+
+
 espera:
 	mov ah, 00
 	int 16h
@@ -133,29 +182,3 @@ espera:
 fin: 
 	int 21h
 	ret
-
-puntosIniciales:
-
-    ;coordenadas iniciales
-    ;mov byte [0200h], 00h
-    ;mov byte [0201h], 00h
-    
-    mov word [0200h], 188d ; x del primer punto
-    
-    ;mov byte [0202h], 00h
-    ;mov byte [0203h], 00h
-    
-    mov word [0202h], 166d ; y del primer punto
-    
-    ;coordenadas finales
-    ;mov byte [0204h], 00h
-    ;mov byte [0205h], 00h 
-    
-    mov word [0204h], 200d ; x del segundo punto
-    
-    ;mov byte [0206h], 00h
-    ;mov byte [0207h], 00h
-    
-    mov word [0206h], 132d ; y del segundo punto
-    
-    ret       
