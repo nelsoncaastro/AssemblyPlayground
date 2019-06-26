@@ -76,7 +76,6 @@ letras:
         mov dl, 54d ; Columna, posición dentro de la fila
         ; DH y DL son las coordenadas del cursor
         int 10h
-
         mov al, "L"
         call caracter
 
