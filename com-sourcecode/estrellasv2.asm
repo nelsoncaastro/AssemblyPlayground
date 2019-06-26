@@ -12,8 +12,12 @@ pendiente: 	resd 1
 yresultante: 	resd 1
 extra: 		resd 1
 
-;section .rodata noexec nowrite align=4
+section .data
 
+x1:	dd 	188
+y1:	dd	166
+x2:	dd  200 
+y2:	dd	132
 
 section .text
 
@@ -84,24 +88,24 @@ sigcrojo:call pixelRojo
 estrellaVerde:
 ;punto inical
 ;m y b
-	mov ecx, [data.x1]
-	mov edx, [data.y1]
+	mov ecx, [x1]
+	mov edx, [y1]
 	call encontrarbp
 sigeazul:call encontrardx
 	call pixelVerde
 	inc ecx
-	cmp ecx, [data.x2]
+	cmp ecx, [x2]
 	jne sigeazul
 	ret
 
 encontrarbp: ;Encontramos la pendiente de dicha linea recta
-	fld dword [data.y2] ;y_2
-	fld dword [data.y1] ; y_1
+	fld dword [y2] ;y_2
+	fld dword [y1] ; y_1
 	fsub ; y_2 - y_1 
 	fstp dword [penddividendo]
 
-	fld dword [data.x2]; x_2
-	fld dword [data.x1]; x_1
+	fld dword [x2]; x_2
+	fld dword [x1]; x_1
 	fsub
 	fstp dword [penddivisor]
 
@@ -115,11 +119,11 @@ encontrarbp: ;Encontramos la pendiente de dicha linea recta
 encontrardx:
 	mov [extra], ecx
 	fld dword [extra] 
-	fld dword [data.x1]
+	fld dword [x1]
 	fsub
 	fld dword [pendiente]	
 	fmul
-	fld dword [data.y1]
+	fld dword [y1]
 	fadd
 	fstp dword [yresultante]
 	mov edx, [yresultante]
@@ -162,10 +166,3 @@ espera:
 fin: 
 	int 21h
 	ret
-
-data:
-
-.x1:	dd 	188
-.y1:	dd	166
-.x2:	dd  200 
-.y2:	dd	132
