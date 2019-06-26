@@ -35,3 +35,4 @@ nasm -f elf64 name.asm && gcc program.c name.o && ./a.out
 * [Netwide Assembler \(NASM\)](https://www.nasm.us/)
 * [DOSBox, an x86 emulator with DOS](https://www.dosbox.com/)
 * [NASM Tutorial](https://cs.lmu.edu/~ray/notes/nasmtutorial/)
+* [x86 Registers](http://www.eecg.toronto.edu/~amza/www.mindsec.com/files/x86regs.html)
