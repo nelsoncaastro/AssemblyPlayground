@@ -1,8 +1,20 @@
 # Assembly Playground :rocket:
 
-The junkyard for some of my stinky assembly code.
+The junkyard for some of my stinky assembly code. It's divided into two use cases:
 
 ## Usage - Compiling .COM files
+
+> LANGUAGE: x86 Assembly Language
+
+> ASSEMBLER: NASM
+
+> SYNTAX: Intel
+
+> ARCHITECTURE: 8086 or i386
+
+> KERNEL: DOSBOX
+
+> FORMAT: Bin
 
 ``` bash 
 nasm -f bin name.asm -o name.com
@@ -22,6 +34,18 @@ dosbox name.com
 * [FPU instructions example \(NASM, for Linux\) by nikAizuddin](https://gist.github.com/nikAizuddin/0e307cac142792dcdeba)
 
 # Advanced stuff
+
+> LANGUAGE: x86 Assembly Language
+
+> ASSEMBLER: NASM
+
+> SYNTAX: Intel
+
+> ARCHITECTURE: 8086 or i386
+
+> KERNEL: Linux 32-bit
+
+> FORMAT: ELF32
 
 ## Usage - Compiling .OUT files without C library
 
