@@ -40,62 +40,61 @@ iniciarModoVideo:
 	ret
 
 bandera:
-	call canvas
+	;call canvas
 	;call cuadroAzul
 	;call cuadroRojo
 	call estrellaVerde
 	ret
 
 canvas: 
-	mov cx, 100d
-	mov dx, 100d
-sigcanv:	call pixelBlanco
-	inc cx
-	cmp cx, 500d
+	mov ecx, 100d
+	mov edx, 100d
+sigcanv:call pixelBlanco
+	inc ecx
+	cmp ecx, 500d
 	jne sigcanv
-	mov cx, 100d
-	inc dx
-	cmp dx, 350d
+	mov ecx, 100d
+	inc edx
+	cmp edx, 350d
 	jne sigcanv
 	ret		
 
 cuadroAzul: 
-	mov cx, 100d
-	mov dx, 225d
-sigcazul:	call pixelAzul
-	inc cx
-	cmp cx, 300d
+	mov ecx, 100d
+	mov edx, 225d
+sigcazul:call pixelAzul
+	inc ecx
+	cmp ecx, 300d
 	jne sigcazul
-	mov cx, 100d
-	inc dx
-	cmp dx, 350d
+	mov ecx, 100d
+	inc edx
+	cmp edx, 350d
 	jne sigcazul
 	ret
 
 cuadroRojo: 
-	mov cx, 300d
-	mov dx, 100d
-sigcrojo:	call pixelRojo
-	inc cx
-	cmp cx, 500d
+	mov ecx, 300d
+	mov edx, 100d
+sigcrojo:call pixelRojo
+	inc ecx
+	cmp ecx, 500d
 	jne sigcrojo
-	mov cx, 300d
-	inc dx
-	cmp dx, 225d
+	mov ecx, 300d
+	inc edx
+	cmp edx, 225d
 	jne sigcrojo
 	ret
 
 estrellaVerde:
 ;punto inical
 ;m y b
-	mov cx, x1
-	mov dx, y1
+	mov ecx, x1
+	mov edx, y1
 	call encontrarbp
 sigeazul:call encontrardx
-	call pixelVerde
-	inc cx
-	mov si, x2
-	cmp cx, si
+	call pixelRojo
+	inc ecx
+	cmp ecx, x2
 	jne sigeazul
 	ret
 
@@ -118,7 +117,7 @@ encontrarbp: ;Encontramos la pendiente de dicha linea recta
 	ret
 
 encontrardx:
-	mov [extra], cx
+	mov [extra], ecx
 	fld dword [extra] 
 	fld dword [x1]
 	fsub
@@ -127,7 +126,7 @@ encontrardx:
 	fld dword [y1]
 	fadd
 	fstp dword [yresultante]
-	mov dx, [yresultante]
+	mov edx, [yresultante]
 	ret
 
 pixelRojo:
