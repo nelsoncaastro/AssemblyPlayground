@@ -1,5 +1,5 @@
 ;**************************************************
-;Este ejemplo NO funciona
+;Este ejemplo SÍ funciona
 ;**************************************************
 
 org 100h
@@ -12,18 +12,14 @@ pendiente: 	resd 1
 yresultante: 	resd 1
 extra: 		resd 1
 
-section .data
+;section .rodata noexec nowrite align=4
 
-x1:	db 	188d
-y1:	db	166d
-x2:	db  200d 
-y2:	db	132d
 
 section .text
 
-global	_start
+global	start
 
-_start:
+start:
 ;======= Princial 
 
 	call iniciarModoVideo
@@ -40,11 +36,10 @@ iniciarModoVideo:
 	ret
 
 bandera:
-	;call canvas
-	;call cuadroAzul
-	;call cuadroRojo
-	call puntosVerdes
-	;call estrellaVerde
+	call canvas
+	call cuadroAzul
+	call cuadroRojo
+	call estrellaVerde
 	ret
 
 canvas: 
@@ -86,36 +81,27 @@ sigcrojo:call pixelRojo
 	jne sigcrojo
 	ret
 
-puntosVerdes:
-	mov ecx, x1
-	mov edx, y1
-	call pixelVerde
-	mov ecx, x2
-	mov dx, y2
-	call pixelVerde
-	ret
-
 estrellaVerde:
 ;punto inical
 ;m y b
-	mov ecx, x1
-	mov edx, y1
+	mov ecx, [data.x1]
+	mov edx, [data.y1]
 	call encontrarbp
 sigeazul:call encontrardx
-	call pixelRojo
+	call pixelVerde
 	inc ecx
-	cmp ecx, x2
+	cmp ecx, [data.x2]
 	jne sigeazul
 	ret
 
 encontrarbp: ;Encontramos la pendiente de dicha linea recta
-	fld dword [y2] ;y_2
-	fld dword [y1] ; y_1
+	fld dword [data.y2] ;y_2
+	fld dword [data.y1] ; y_1
 	fsub ; y_2 - y_1 
 	fstp dword [penddividendo]
 
-	fld dword [x2]; x_2
-	fld dword [x1]; x_1
+	fld dword [data.x2]; x_2
+	fld dword [data.x1]; x_1
 	fsub
 	fstp dword [penddivisor]
 
@@ -129,11 +115,11 @@ encontrarbp: ;Encontramos la pendiente de dicha linea recta
 encontrardx:
 	mov [extra], ecx
 	fld dword [extra] 
-	fld dword [x1]
+	fld dword [data.x1]
 	fsub
 	fld dword [pendiente]	
 	fmul
-	fld dword [y1]
+	fld dword [data.y1]
 	fadd
 	fstp dword [yresultante]
 	mov edx, [yresultante]
@@ -176,3 +162,10 @@ espera:
 fin: 
 	int 21h
 	ret
+
+data:
+
+.x1:	dd 	188
+.y1:	dd	166
+.x2:	dd  200 
+.y2:	dd	132
