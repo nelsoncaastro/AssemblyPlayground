@@ -5,16 +5,16 @@ The junkyard for some of my stinky assembly code. It's divided into two use case
 ## Usage - Compiling .COM files
 
 > LANGUAGE: x86 Assembly Language
-
+>
 > ASSEMBLER: NASM
-
+>
 > SYNTAX: Intel
-
+>
 > ARCHITECTURE: 8086 or i386
-
+>
 > KERNEL: DOSBOX
-
-> FORMAT: Bin
+>
+> FORMAT: BIN
 
 ``` bash 
 nasm -f bin name.asm -o name.com
@@ -36,16 +36,16 @@ dosbox name.com
 # Advanced stuff
 
 > LANGUAGE: x86 Assembly Language
-
+>
 > ASSEMBLER: NASM
-
+>
 > SYNTAX: Intel
-
+>
 > ARCHITECTURE: 8086 or i386
-
-> KERNEL: Linux 32-bit
-
-> FORMAT: ELF32
+>
+> KERNEL: Linux 64 or 32 bit
+>
+> FORMAT: ELF64 or ELF32
 
 ## Usage - Compiling .OUT files without C library
 
