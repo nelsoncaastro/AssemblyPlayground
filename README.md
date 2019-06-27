@@ -32,6 +32,7 @@ dosbox name.com
 * [x86 Registers](http://www.eecg.toronto.edu/~amza/www.mindsec.com/files/x86regs.html)
 * [Simply Floating Point Unit \(FPU\)](http://www.website.masmforum.com/tutorials/fptute/#intro)
 * [FPU instructions example \(NASM, for Linux\) by nikAizuddin](https://gist.github.com/nikAizuddin/0e307cac142792dcdeba)
+* [Interrupts for the x86 family](https://jbwyatt.com/253/emu/8086_bios_and_dos_interrupts.html)
 
 # Advanced stuff
 
